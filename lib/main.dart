@@ -10,12 +10,6 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.red),
-      //   home: Scaffold(
-      //       appBar: AppBar(title: Text('Welcome to Flutter')),
-      //       body: Center(
-      //    child: Text("Hello world"),
-      //    child: Text(wordPair.asPascalCase),
-      //           child: RandomWords()))
       home: RandomWords(),
     );
   }
@@ -28,13 +22,11 @@ class RandomWords extends StatefulWidget {
 
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
+  final _save = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
   Widget build(BuildContext context) {
-    //  final wordPair = WordPair.random();
-    //  return new Text(wordPair.asPascalCase);
-
     return new Scaffold(
         appBar: AppBar(title: Text('Welcome to Flutter')),
         body: _buildSuggestions());
@@ -44,7 +36,7 @@ class RandomWordsState extends State<RandomWords> {
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, i) {
-          if (i.isOdd) return new Divider();
+          if (i.isOdd) return Divider();
           final index = i ~/ 2;
           if (index >= _suggestions.length) {
             _suggestions.addAll(generateWordPairs().take(10));
@@ -54,8 +46,22 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair suggestion) {
+    final alreadySaved = _save.contains(suggestion);
     return ListTile(
-        title: new Text(suggestion.asPascalCase, style: _biggerFont));
+        title: Text(suggestion.asPascalCase, style: _biggerFont),
+        trailing: Icon(
+          alreadySaved ? Icons.favorite : Icons.favorite_border,
+          color: alreadySaved ? Colors.red : null,
+        ),
+        onTap: () {
+          setState(() {
+            if(alreadySaved){
+              _save.remove(suggestion);
+            }else{
+              _save.add(suggestion);
+            }
+          });
+        });
   }
 }
 
