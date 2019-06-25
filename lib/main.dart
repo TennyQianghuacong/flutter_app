@@ -8,19 +8,57 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final wordPair = WordPair.random();
     return new MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(primarySwatch: Colors.red),
-        home: Scaffold(
-          appBar: AppBar(
-              title: Text('Welcome to Flutter')
-          ),
-          body: Center(
-        //    child: Text("Hello world"),
-            child: Text(wordPair.asPascalCase),
-          ),
-        ));
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.red),
+      //   home: Scaffold(
+      //       appBar: AppBar(title: Text('Welcome to Flutter')),
+      //       body: Center(
+      //    child: Text("Hello world"),
+      //    child: Text(wordPair.asPascalCase),
+      //           child: RandomWords()))
+      home: RandomWords(),
+    );
   }
 }
+
+class RandomWords extends StatefulWidget {
+  @override
+  createState() => RandomWordsState();
+}
+
+class RandomWordsState extends State<RandomWords> {
+  final _suggestions = <WordPair>[];
+  final _biggerFont = const TextStyle(fontSize: 18.0);
+
+  @override
+  Widget build(BuildContext context) {
+    //  final wordPair = WordPair.random();
+    //  return new Text(wordPair.asPascalCase);
+
+    return new Scaffold(
+        appBar: AppBar(title: Text('Welcome to Flutter')),
+        body: _buildSuggestions());
+  }
+
+  Widget _buildSuggestions() {
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: (context, i) {
+          if (i.isOdd) return new Divider();
+          final index = i ~/ 2;
+          if (index >= _suggestions.length) {
+            _suggestions.addAll(generateWordPairs().take(10));
+          }
+          return _buildRow(_suggestions[index]);
+        });
+  }
+
+  Widget _buildRow(WordPair suggestion) {
+    return ListTile(
+        title: new Text(suggestion.asPascalCase, style: _biggerFont));
+  }
+}
+
 /*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
