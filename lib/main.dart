@@ -28,7 +28,10 @@ class RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(title: Text('Welcome to Flutter')),
+        appBar: AppBar(title: Text('Welcome to Flutter'),actions: <Widget>[
+          IconButton(icon: Icon(Icons.list, color: Colors.white,),  onPressed:
+          _pushSaved)
+        ]),
         body: _buildSuggestions());
   }
 
@@ -55,14 +58,61 @@ class RandomWordsState extends State<RandomWords> {
         ),
         onTap: () {
           setState(() {
-            if(alreadySaved){
+            if (alreadySaved) {
               _save.remove(suggestion);
-            }else{
+            } else {
               _save.add(suggestion);
             }
           });
         });
   }
+
+   void _pushSaved() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (context) {
+          final tiles = _save.map(
+                (pair) {
+              return new ListTile(
+                title: new Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final divided = ListTile
+              .divideTiles(
+            context: context,
+            tiles: tiles,
+          )
+              .toList();
+
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Saved Suggestions'),
+            ),
+            body: new ListView(children: divided),
+          );
+        },
+      ),
+    );
+  }
+
+/*  _pushSaved() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      final titles = _save.map((pair) {
+        return ListTile(
+            title: Text(
+          pair.asPascalCase,
+          style: _biggerFont,
+        ));
+      });
+      final divided = ListTile.divideTiles(tiles: titles).toList();
+      return new Scaffold(appBar: AppBar(title: new Text('Favourite List')),
+          body: new ListView(children: divided));
+    }));
+  }*/
 }
 
 /*
