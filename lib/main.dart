@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final wordPair = WordPair.random();
     return new MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(primarySwatch: Colors.red),
-        home: new Scaffold(
-          appBar: new AppBar(
-              title: new Text('Welcome to Flutter')
+        home: Scaffold(
+          appBar: AppBar(
+              title: Text('Welcome to Flutter')
           ),
-          body: new Center(
-            child: new Text("Hello world"),
+          body: Center(
+        //    child: Text("Hello world"),
+            child: Text(wordPair.asPascalCase),
           ),
         ));
   }
