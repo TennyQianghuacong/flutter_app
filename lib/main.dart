@@ -22,7 +22,7 @@ class RandomWords extends StatefulWidget {
 
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _save = <WordPair>[];
+  final _save = Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
@@ -30,7 +30,7 @@ class RandomWordsState extends State<RandomWords> {
     return new Scaffold(
         appBar: AppBar(title: Text('Welcome to Flutter'),actions: <Widget>[
           IconButton(icon: Icon(Icons.list, color: Colors.white,),  onPressed:
-          _pushSaved)
+          _pushSaved2)
         ]),
         body: _buildSuggestions());
   }
@@ -69,12 +69,12 @@ class RandomWordsState extends State<RandomWords> {
 
    void _pushSaved() {
     Navigator.of(context).push(
-      new MaterialPageRoute(
+       MaterialPageRoute(
         builder: (context) {
           final tiles = _save.map(
                 (pair) {
-              return new ListTile(
-                title: new Text(
+              return  ListTile(
+                title:  Text(
                   pair.asPascalCase,
                   style: _biggerFont,
                 ),
@@ -88,18 +88,18 @@ class RandomWordsState extends State<RandomWords> {
           )
               .toList();
 
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Saved Suggestions'),
+          return  Scaffold(
+            appBar:  AppBar(
+              title:  Text('Saved Suggestions'),
             ),
-            body: new ListView(children: divided),
+            body: ListView(children: divided),
           );
         },
       ),
     );
   }
 
-/*  _pushSaved() {
+  void _pushSaved2() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       final titles = _save.map((pair) {
         return ListTile(
@@ -108,11 +108,11 @@ class RandomWordsState extends State<RandomWords> {
           style: _biggerFont,
         ));
       });
-      final divided = ListTile.divideTiles(tiles: titles).toList();
+      final divided = ListTile.divideTiles(context: context, tiles: titles).toList();
       return new Scaffold(appBar: AppBar(title: new Text('Favourite List')),
           body: new ListView(children: divided));
     }));
-  }*/
+  }
 }
 
 /*
