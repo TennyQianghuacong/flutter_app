@@ -1,62 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() {
-  runApp(new SampleApp());
-}
+void main() => runApp(MyAPP());
 
-class SampleApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Sample App',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new SampleAppPage(),
-    );
-  }
-}
-
-class SampleAppPage extends StatefulWidget {
-  SampleAppPage({Key key}) : super(key: key);
-
-  @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
-}
-
-class _SampleAppPageState extends State<SampleAppPage> {
-  // Default value for toggle
-  bool toggle = true;
-  void _toggle() {
-    setState(() {
-      toggle = !toggle;
-    });
-  }
-
-  _getToggleChild() {
-    if (toggle) {
-      return new Text('Toggle One');
-    } else {
-      return new MaterialButton(onPressed: () {}, child: new Text('Toggle Two'));
-    }
-  }
+class MyAPP extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
-      ),
-      body: new Center(
-        child: _getToggleChild(),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _toggle,
-        tooltip: 'Update Text',
-        child: new Icon(Icons.update),
+    return MaterialApp(
+      title: 'Text Widget',
+      home: Scaffold(
+        appBar: AppBar(title: Text('Text Widget'),),
+        body: Center(
+          child: Container(
+            child: Text('Hello world', style: TextStyle(fontSize: 40.0),),
+            alignment: Alignment.bottomRight,
+            width: 500,
+            height: 400,
+            padding: EdgeInsets.all(10.0),
+            margin: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Colors.pink,Colors.red,Colors.orange])
+            ),
+          ),
+        ),
       ),
     );
   }
+
 }
