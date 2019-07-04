@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'layout_sample.dart';
 
-void main() => runApp(MyAPP(
-      items: List<String>.generate(1000, (i) => "Item $i"),
-    ));
+void main() => runApp(StackApp());
 
 class MyAPP extends StatelessWidget {
   final List<String> items;
@@ -21,7 +19,7 @@ class MyAPP extends StatelessWidget {
           backgroundColor: Colors.orangeAccent,
         ),
         body: Container(
-          child: MyRowTest(),
+          child: MyStackTest(),
         ),
       ),
     );
