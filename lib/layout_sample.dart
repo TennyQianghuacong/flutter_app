@@ -63,11 +63,11 @@ class MyColumnTest extends StatelessWidget {
   }
 }
 
-class MyStackTest extends StatelessWidget {
+class MyStackTest1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: FractionalOffset(0.5, 0.5),
+      alignment: const FractionalOffset(0.5, 0.5),
       children: <Widget>[
         CircleAvatar(
           backgroundImage: NetworkImage(
@@ -86,11 +86,28 @@ class MyStackTest extends StatelessWidget {
   }
 }
 
+class MyStackTest2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: const FractionalOffset(0.5, 0.8),
+      children: <Widget>[
+        CircleAvatar(
+          backgroundImage: NetworkImage(
+              'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2409023147,856293757&fm=27&gp=0.jpg'),
+          radius: 50.0,
+        )
+      ],
+    );
+  }
+
+}
+
 class StackApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var stack = MyStackTest();
+    var stack = MyStackTest2();
 
     return MaterialApp(
       title: 'Stack App',
