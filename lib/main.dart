@@ -19,7 +19,7 @@ class MyAPP extends StatelessWidget {
           backgroundColor: Colors.orangeAccent,
         ),
         body: Container(
-          child: MyStackTest(),
+          child: MyStackTest2(),
         ),
       ),
     );
