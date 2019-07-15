@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'layout_sample.dart';
+import 'navigation_sample.dart';
 
-void main() => runApp(StackApp());
+void main() => runApp(NavigationApp());
 
 class MyAPP extends StatelessWidget {
   final List<String> items;
