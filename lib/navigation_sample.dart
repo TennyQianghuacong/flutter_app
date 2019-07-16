@@ -64,16 +64,49 @@ class ProductListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Navigation App'),
+        title: Text('Navigation App List'),
         backgroundColor: Colors.orangeAccent,
       ),
       body: ListView.builder(
           itemCount: productList.length,
-          itemBuilder: (context, index){
+          itemBuilder: (context, index) {
             return ListTile(
               title: Text(productList[index].title),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                              product: productList[index],
+                            )));
+              },
             );
-          }
+          }),
+    );
+  }
+}
+
+class ProductDetailScreen extends StatelessWidget {
+  final ProductBean product;
+
+  ProductDetailScreen({Key key, this.product}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Navigation App Detail'),
+        backgroundColor: Colors.orange,
+      ),
+      body: Container(
+        child: ListTile(
+          title: Text(
+            product.title,
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
+          subtitle: Text(product.description),
+          leading: Icon(Icons.directions_bike, color: Colors.orange),
+        ),
       ),
     );
   }
