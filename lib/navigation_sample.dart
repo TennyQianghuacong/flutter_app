@@ -73,17 +73,23 @@ class ProductListScreen extends StatelessWidget {
             return ListTile(
               title: Text(productList[index].title),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductDetailScreen(
-                              product: productList[index],
-                            )));
+                _navigateToDetail(context, index);
               },
             );
           }),
     );
   }
+
+  //等待返回值
+  _navigateToDetail(BuildContext context, int index) async{
+    final result = await Navigator.push(context, MaterialPageRoute(
+        builder: (context) => ProductDetailScreen(
+          product: productList[index],
+        )));
+
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(result)));
+  }
+
 }
 
 class ProductDetailScreen extends StatelessWidget {
@@ -106,6 +112,9 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           subtitle: Text(product.description),
           leading: Icon(Icons.directions_bike, color: Colors.orange),
+          onTap: (){
+            Navigator.pop(context, product.description);
+          },
         ),
       ),
     );
